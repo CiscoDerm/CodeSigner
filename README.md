@@ -34,7 +34,7 @@ Un outil robuste et sécurisé pour signer cryptographiquement votre code source
 
 1. Clonez le dépôt :
 ```bash
-git clone https://github.com/ciscoderm/codesigner.git
+git clone https://github.com/CiscoDerm/codesigner.git
 cd codesigner
 ```
 
