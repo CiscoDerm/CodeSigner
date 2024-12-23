@@ -1,27 +1,38 @@
 # 🔐 CodeSigner
 
-Un outil puissant et flexible pour signer et vérifier l'authenticité de votre code source. Protégez vos utilisateurs en leur permettant de vérifier l'intégrité de votre code.
+Un outil robuste et sécurisé pour signer cryptographiquement votre code source. Protégez vos utilisateurs en leur permettant de vérifier l'authenticité et l'intégrité de votre code.
 
 ![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Security](https://img.shields.io/badge/security-RSA%204096-red.svg)
 
 ## ✨ Caractéristiques
 
-- 🔑 Génération sécurisée de paires de clés RSA
-- 📝 Signature de fichiers individuels ou de répertoires complets
-- 🔍 Vérification facile de l'authenticité du code
-- 🎯 Sélection des fichiers par extension
-- 💾 Stockage des signatures dans un format JSON portable
-- 🚀 Interface en ligne de commande simple et intuitive
+- 🔑 RSA 4096 bits pour une sécurité maximale
+- 🛡️ Double hachage (SHA-256 + SHA3-512)
+- 🔒 Chiffrement du manifeste des signatures
+- ⏰ Vérification temporelle des signatures
+- 🎯 Sélection flexible des fichiers par extension
+- 🚨 Détection avancée des manipulations
+- 📝 Rapports de vérification détaillés
+
+## 🛡️ Fonctionnalités de Sécurité
+
+- Protection contre les attaques Man-in-the-Middle
+- Détection des replay attacks via timestamps
+- Vérification multi-niveaux de l'intégrité
+- Chiffrement de la clé privée par mot de passe
+- Permissions système restrictives sur les fichiers sensibles
+- Alertes sur les signatures périmées
 
 ## 📋 Prérequis
 
 - Python 3.7 ou supérieur
-- Package cryptography
+- Package cryptography (`pip install cryptography`)
 
 ## 🛠️ Installation
 
-1. Clonez ce dépôt :
+1. Clonez le dépôt :
 ```bash
 git clone https://github.com/ciscoderm/codesigner.git
 cd codesigner
@@ -34,83 +45,88 @@ pip install cryptography
 
 ## 📖 Guide d'utilisation
 
-### Génération des clés
+### Génération des clés (Développeur)
 
-Générez votre paire de clés RSA :
 ```bash
+# Génération simple
 python codesigner.py generate-keys
+
+# Génération avec protection par mot de passe (recommandé)
+python codesigner.py generate-keys --password "votre_mot_de_passe_fort"
 ```
+
 Cela créera un dossier `keys` contenant :
-- `private_key.pem` (🔒 gardez-la secrète !)
-- `public_key.pem` (🌐 partagez-la avec vos utilisateurs)
+- 🔒 `private_key.pem` (PRIVÉ - Ne jamais partager!)
+- 🌐 `public_key.pem` (À distribuer aux utilisateurs)
+- 🔑 `manifest.key` (Pour la vérification du manifeste)
 
-### Signature de code
+### Signature de code (Développeur)
 
-Signez tous les fichiers Python dans le répertoire courant :
 ```bash
-python codesigner.py sign --extensions .py
-```
+# Signature avec mot de passe
+python codesigner.py sign --extensions .py --password "votre_mot_de_passe"
 
-Signez plusieurs types de fichiers dans un répertoire spécifique :
-```bash
+# Signature de plusieurs types de fichiers
 python codesigner.py sign --directory ./mon_projet --extensions .py .js .css
 ```
 
-### Distribution de votre code
+### Distribution du code
 
-Pour permettre aux utilisateurs de vérifier votre code, fournissez :
-1. 📦 Votre code source
-2. 📄 Le fichier `signatures.json` généré
-3. 🔑 Votre clé publique (`public_key.pem`)
+Pour permettre à vos utilisateurs de vérifier votre code, fournissez :
+1. 📦 Le code source
+2. 📄 Le fichier `signatures.manifest`
+3. 🔑 La clé publique (`public_key.pem`)
+4. 🔐 La clé du manifeste (`manifest.key`)
 
-### Vérification du code
-
-Les utilisateurs peuvent vérifier l'authenticité du code avec :
-```bash
-python codesigner.py verify --public-key chemin/vers/public_key.pem
-```
-
-## 🎯 Exemples
-
-### Exemple de projet Python
+### Vérification du code (Utilisateur)
 
 ```bash
-# Générer les clés
-python codesigner.py generate-keys
-
-# Signer tous les fichiers Python
-python codesigner.py sign --extensions .py
-
-# Vérifier les signatures
-python codesigner.py verify --public-key ./keys/public_key.pem
+# Vérification complète
+python codesigner.py verify --public-key ./keys/public_key.pem --manifest-key ./keys/manifest.key
 ```
 
-La sortie ressemblera à :
-```
-src/main.py: ✓ Valide
+## 🎯 Exemple de sortie
+
+```bash
+mon_projet/main.py: ✓ Valide
+mon_projet/utils.py: ✓ Valide
 tests/test_main.py: ✓ Valide
+
+Résumé de vérification:
+- Fichiers vérifiés: 3/3
+- Statut global: ✓ OK
 ```
 
-## 🔒 Sécurité
+## ⚠️ Bonnes pratiques de sécurité
 
-- Utilise RSA 2048 bits pour une sécurité optimale
-- Implémente le padding PSS pour la signature
-- Utilise SHA-256 pour le hachage des fichiers
-- Stocke les clés privées de manière sécurisée
+1. 🔒 Protection de la clé privée :
+   - Ne jamais partager votre clé privée
+   - Utiliser un mot de passe fort
+   - Sauvegarder la clé de manière sécurisée
 
-## ⚠️ Bonnes pratiques
+2. 🔄 Gestion des signatures :
+   - Signer à nouveau après chaque modification
+   - Renouveler les signatures tous les 30 jours
+   - Vérifier l'intégrité du manifeste régulièrement
 
-1. Ne partagez JAMAIS votre clé privée
-2. Conservez votre clé privée dans un endroit sûr
-3. Signez à nouveau votre code après chaque modification
-4. Distribuez votre clé publique via un canal sécurisé
+3. 📢 Distribution :
+   - Distribuer la clé publique via un canal sécurisé
+   - Inclure des checksums pour les fichiers de vérification
+   - Documenter la procédure de vérification
+
+## 🔍 Diagnostics courants
+
+- ⚠️ `Signature périmée` : La signature a plus de 30 jours
+- ❌ `Hash invalide` : Le fichier a été modifié
+- ⚠️ `Manifeste altéré` : Le fichier de signatures a été compromis
+- ❌ `Fichier manquant` : Un fichier signé est absent
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! N'hésitez pas à :
+Les contributions sont bienvenues ! Processus :
 
 1. 🍴 Forker le projet
-2. 🔨 Créer une branche pour votre fonctionnalité
+2. 🔨 Créer une branche (`git checkout -b feature/amelioration`)
 3. 📝 Commiter vos changements
 4. 🚀 Pusher vers la branche
 5. 🎉 Ouvrir une Pull Request
@@ -121,4 +137,4 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 
 ---
 
-⭐️ Si ce projet vous est utile, n'hésitez pas à lui donner une étoile sur GitHub !
+⭐️ Si ce projet vous aide à sécuriser votre code, n'hésitez pas à lui donner une étoile sur GitHub !
