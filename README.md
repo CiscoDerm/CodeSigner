@@ -115,10 +115,6 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 4. 🚀 Pusher vers la branche
 5. 🎉 Ouvrir une Pull Request
 
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
 ## 📬 Contact
 
 - Créé par [CiscoDerm]
