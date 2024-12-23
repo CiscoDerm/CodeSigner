@@ -121,9 +121,7 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 
 ## 📬 Contact
 
-- Créé par [Votre Nom]
-- Twitter: [@votre_twitter]
-- GitHub: [@votre_github]
+- Créé par [CiscoDerm]
 
 ---
 
