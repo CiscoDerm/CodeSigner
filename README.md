@@ -23,7 +23,7 @@ Un outil puissant et flexible pour signer et vérifier l'authenticité de votre 
 
 1. Clonez ce dépôt :
 ```bash
-git clone https://github.com/votre-username/codesigner.git
+git clone https://github.com/ciscoderm/codesigner.git
 cd codesigner
 ```
 
