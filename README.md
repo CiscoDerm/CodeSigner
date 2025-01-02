@@ -2,7 +2,7 @@
 
 Un outil robuste et sécurisé pour signer cryptographiquement votre code source. Protégez vos utilisateurs en leur permettant de vérifier l'authenticité et l'intégrité de votre code.
 
-![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)
+![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Security](https://img.shields.io/badge/security-RSA%204096-red.svg)
 
