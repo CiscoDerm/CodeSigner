@@ -5,6 +5,7 @@ Un outil robuste et sécurisé pour signer cryptographiquement votre code source
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Security](https://img.shields.io/badge/security-RSA%204096-red.svg)
+[![Quality Gate Status](http://87.106.163.166:9000/api/project_badges/measure?project=CiscoDerm_CodeSigner_AZVcvfSUwmLJAEZbk5_M&metric=alert_status&token=sqb_2acdaf67631b21a91d2e510b84970a70fe1c1008)](http://87.106.163.166:9000/dashboard?id=CiscoDerm_CodeSigner_AZVcvfSUwmLJAEZbk5_M)
 
 ## ✨ Caractéristiques
 
